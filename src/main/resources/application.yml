@@ -1,9 +1,15 @@
 spring:
   datasource:
     #url: jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/your_planner_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: yourplanneruser
-    password: your_planner_password
+    #url: jdbc:postgresql://localhost:5432/your_planner_db
+    #username: postgres
+    #password: root
+    url: jdbc:postgresql://ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d8u8ur54hug41h
+    username: tbwmgsfiaiqpnk
+    password: b789a538ae8a85d84173af55848b68d922e0df866ab7a619fd4e1522d4b99b2c
+    initialization-mode: always
+  #    username: yourplanneruser
+#    password: your_planner_password
   tomcat:
     max-wait: 20000
     max-active: 50
@@ -11,11 +17,13 @@ spring:
     min-idle: 15
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         #dialect: org.hibernate.dialect.H2Dialect
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
         format_sql: true
         id:
           new_generator_mappings: false

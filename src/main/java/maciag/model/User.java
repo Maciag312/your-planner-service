@@ -9,7 +9,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Entity(name="myuser")
+@Entity(name="client")
 @Getter
 @Setter
 @NoArgsConstructor
