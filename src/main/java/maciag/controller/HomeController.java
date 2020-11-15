@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     @GetMapping()
+    @CrossOrigin(origins = "*")
     public String hello(){
         return "Hello World!";
     }
-
 
 
 }
