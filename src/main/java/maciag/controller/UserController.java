@@ -21,7 +21,6 @@ import maciag.service.UserService;
 @RestController
 @RequestMapping("/users")
 @Api(tags = "users")
-@CrossOrigin(origins = "*")
 public class UserController {
 
   @Autowired

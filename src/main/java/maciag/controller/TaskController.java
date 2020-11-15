@@ -24,7 +24,6 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/tasks")
 @Api(tags = "tasks")
-@CrossOrigin(origins = "*")
 public class TaskController {
 
 
