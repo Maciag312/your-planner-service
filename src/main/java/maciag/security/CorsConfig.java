@@ -16,17 +16,17 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/users/**")
                         .allowedOrigins("http://localhost:3000"
-                                ,"")
+                                ,"https://your-planner.herokuapp.com")
                         .allowedMethods("GET","POST")
                         .maxAge(3600);
                 registry.addMapping("/tasks/**")
                         .allowedOrigins("http://localhost:3000"
-                                ,"")
+                                ,"https://your-planner.herokuapp.com")
                         .allowedMethods("GET","POST")
                         .maxAge(3600);
                 registry.addMapping("/home")
                         .allowedOrigins("http://localhost:3000"
-                                ,"")
+                                ,"https://your-planner.herokuapp.com")
                         .allowedMethods("GET","POST")
                         .maxAge(3600);
                 registry.addMapping("/**")
