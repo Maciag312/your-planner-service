@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/home")
 @Api(tags = "home")
 @CrossOrigin(origins = "*")
 public class HomeController {
 
-    @GetMapping()
+    @GetMapping
     public String hello(){
         return "Hello World!";
     }
