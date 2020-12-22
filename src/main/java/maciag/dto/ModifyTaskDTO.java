@@ -6,13 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDTO {
-
+public class ModifyTaskDTO {
     @ApiModelProperty(position = 0)
     private Long id;
     @ApiModelProperty(position = 1)
@@ -25,6 +23,4 @@ public class TaskDTO {
     private String date;
     @ApiModelProperty(position = 5)
     private boolean isDone;
-    @ApiModelProperty(position = 6)
-    private boolean isTimeLimited;
 }
