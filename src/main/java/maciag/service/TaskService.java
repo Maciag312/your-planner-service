@@ -134,6 +134,7 @@ public class TaskService {
         if(!task.getUser().getUsername().equals(fetchUser.getUsername()))
             return "not exist";
         task.setDone(!task.isDone());
+        taskRepository.save(task);
         return task.isDone()?"done":"not done";
     }
     public boolean isTaskRunning(Long task_id, User fetchUser){
