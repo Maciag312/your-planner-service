@@ -49,7 +49,7 @@ public class TaskController {
     }
 
 
-    @PostMapping("/addTask")
+    @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.addTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -57,16 +57,9 @@ public class TaskController {
         taskService.addTask(fetchUser(authentication), taskDTO);
     }
 
-    @GetMapping("/addTasks")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    @ApiOperation(value = "${TaskController.addTask}")
-    @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void addTasks(@ApiParam(name="Task", required = true) @RequestBody List<TaskDTO> taskDTOs, @ApiIgnore Authentication authentication) {
-        taskService.addTasks(fetchUser(authentication), taskDTOs);
-    }
 
 
-    @GetMapping("/getAllTasks")
+    @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.getAllTasks}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -74,7 +67,7 @@ public class TaskController {
         return taskService.getAllTasks(fetchUser(authentication));
     }
 
-    @GetMapping(value = "/getAllTasksByDate/{date}")
+    @GetMapping(value = "/{date}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.getAllTasksByDate}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -89,7 +82,7 @@ public class TaskController {
     }
 
 
-    @PostMapping(value = "/modifyTask", consumes = "application/json")
+    @PutMapping(consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.modifyTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -98,7 +91,7 @@ public class TaskController {
     }
 
 
-    @GetMapping(value = "/toggleIsDone/{task_id}", consumes = "application/json")
+    @PutMapping(value = "/toggleIsDone/{task_id}", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.toggleIsDone}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -106,7 +99,7 @@ public class TaskController {
         return taskService.toggleIsDoneAndShowState(task_id, fetchUser(authentication));
     }
 
-    @GetMapping("/removeTask/{task_id}")
+    @DeleteMapping("/{task_id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.removeTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -114,16 +107,8 @@ public class TaskController {
         taskService.removeTask(task_id, fetchUser(authentication));
     }
 
-    @GetMapping("/removeTasks")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
-    @ApiOperation(value = "${TaskController.removeTasks}")
-    @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void removeTasks(@RequestBody List<Long> task_ids, @ApiIgnore Authentication authentication) {
-        taskService.removeTasks(task_ids, fetchUser(authentication));
-    }
 
-
-    @GetMapping("/runTask/{task_id}")
+    @PostMapping("/run/{task_id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.runTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
@@ -131,7 +116,7 @@ public class TaskController {
         taskService.runTask(task_id, fetchUser(authentication));
     }
 
-    @GetMapping("/stopTask/{task_id}")
+    @PostMapping("/stop/{task_id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.stopTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
