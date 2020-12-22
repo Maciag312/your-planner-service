@@ -2,6 +2,8 @@ package maciag.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import maciag.dto.CreateTaskDTO;
+import maciag.dto.ModifyTaskDTO;
 import maciag.dto.TaskDTO;
 import maciag.model.Category;
 import maciag.model.Task;
@@ -54,14 +56,14 @@ public class TaskService {
         return true;
     }
 
-    public void addTask(User user, TaskDTO taskDTO){
+    public void addTask(User user, CreateTaskDTO taskDTO){
         Category category = categoryRepository.findByName(taskDTO.getCategory()).orElse(null);
         if(category==null)
             category = new Category(taskDTO.getCategory());
 
         category = categoryRepository.save(category);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date;
         try {
             date = format.parse(taskDTO.getDate());
@@ -84,10 +86,7 @@ public class TaskService {
         if(task.getUser().getUsername().equals(user.getUsername()))
             taskRepository.deleteById(task_id);
     }
-    public void removeTasks(List<Long> tasks_id, User user){
-        for(int i=0;i<tasks_id.size();i++)
-            this.removeTask(tasks_id.get(i), user);
-    }
+
     private boolean areDaysAndYearEqual(Date date, Date date2){
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
@@ -96,19 +95,17 @@ public class TaskService {
         return c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR) && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
     }
     public List<TaskDTO> getAllTasksByDate(User user,Date date){
-        List<TaskDTO> tasks = new ArrayList<>();
         List<Task> foundTasks =  taskRepository.findAllByUser(user);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return foundTasks.stream().filter(t->areDaysAndYearEqual(t.getDate(),date)).map(t->new TaskDTO(t.getId(), t.getName(),t.getCategory().getName(), t.getDuration(), dateFormat.format(t.getDate()),t.isDone())).collect(Collectors.toList());
+        return foundTasks.stream().filter(t->areDaysAndYearEqual(t.getDate(),date)).map(t->new TaskDTO(t.getId(), t.getName(),t.getCategory().getName(), t.getDuration(), dateFormat.format(t.getDate()),t.isDone(), t.isTimeLimited())).collect(Collectors.toList());
     }
     public List<TaskDTO> getAllTasks(User user){
-        List<TaskDTO> tasks = new ArrayList<>();
         List<Task> foundTasks =  taskRepository.findAllByUser(user);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return foundTasks.stream().map(t->new TaskDTO(t.getId(), t.getName(),t.getCategory().getName(),t.getDuration(), dateFormat.format(t.getDate()),t.isDone())).collect(Collectors.toList());
+        return foundTasks.stream().map(t->new TaskDTO(t.getId(), t.getName(),t.getCategory().getName(),t.getDuration(), dateFormat.format(t.getDate()),t.isDone(), t.isTimeLimited())).collect(Collectors.toList());
     }
 
-    public void modifyTask(TaskDTO taskDTO, User user){
+    public void modifyTask(ModifyTaskDTO taskDTO, User user){
         Task task = taskRepository.findById(taskDTO.getId()).orElse(null);
         if(task==null)
             return;

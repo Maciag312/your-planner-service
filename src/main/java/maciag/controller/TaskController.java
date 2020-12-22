@@ -2,6 +2,8 @@ package maciag.controller;
 
 
 import io.swagger.annotations.*;
+import maciag.dto.CreateTaskDTO;
+import maciag.dto.ModifyTaskDTO;
 import maciag.dto.TaskDTO;
 import maciag.repository.UserRepository;
 import maciag.service.TaskService;
@@ -53,7 +55,7 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.addTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void addTask(@ApiParam(name="Task", required = true) @RequestBody TaskDTO taskDTO, @ApiIgnore Authentication authentication) {
+    public void addTask(@ApiParam(name="Task", required = true) @RequestBody CreateTaskDTO taskDTO, @ApiIgnore Authentication authentication) {
         taskService.addTask(fetchUser(authentication), taskDTO);
     }
 
@@ -86,7 +88,7 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${TaskController.modifyTask}")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Something went wrong"),   @ApiResponse(code = 403, message = "Access denied"),  @ApiResponse(code = 404, message = "The user doesn't exist"), @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public void modifyTask(@RequestBody TaskDTO taskDTO, @ApiIgnore Authentication authentication) {
+    public void modifyTask(@RequestBody ModifyTaskDTO taskDTO, @ApiIgnore Authentication authentication) {
         taskService.modifyTask(taskDTO, fetchUser(authentication));
     }
 

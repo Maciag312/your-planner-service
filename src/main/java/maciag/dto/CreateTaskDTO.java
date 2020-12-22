@@ -6,25 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDTO {
+public class CreateTaskDTO {
 
     @ApiModelProperty(position = 0)
-    private Long id;
-    @ApiModelProperty(position = 1)
     private String name;
-    @ApiModelProperty(position = 2)
+    @ApiModelProperty(position = 1)
     private String category;
-    @ApiModelProperty(position = 3)
+    @ApiModelProperty(position = 2)
     private Long duration;
-    @ApiModelProperty(position = 4)
+    @ApiModelProperty(position = 3)
     private String date;
-    @ApiModelProperty(position = 5)
+    @ApiModelProperty(position = 4)
     private boolean isDone;
-    @ApiModelProperty(position = 6)
-    private boolean isTimeLimited;
+
 }
