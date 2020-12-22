@@ -17,21 +17,21 @@ public class CorsConfig {
                 registry.addMapping("/users/**")
                         .allowedOrigins("http://localhost:3000"
                                 ,"https://your-planner.herokuapp.com")
-                        .allowedMethods("GET","POST")
+                        .allowedMethods("GET","POST", "PUT", "DELETE")
                         .maxAge(3600);
                 registry.addMapping("/tasks/**")
                         .allowedOrigins("http://localhost:3000"
                                 ,"https://your-planner.herokuapp.com")
-                        .allowedMethods("GET","POST")
+                        .allowedMethods("GET","POST", "PUT", "DELETE")
                         .maxAge(3600);
                 registry.addMapping("/home")
                         .allowedOrigins("http://localhost:3000"
                                 ,"https://your-planner.herokuapp.com")
-                        .allowedMethods("GET","POST")
+                        .allowedMethods("GET","POST", "PUT", "DELETE")
                         .maxAge(3600);
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("GET","POST")
+                        .allowedMethods("GET","POST", "PUT", "DELETE")
                         .maxAge(3600);
             }
         };
