@@ -119,7 +119,7 @@ public class TaskService {
         if(category==null)
             category = categoryRepository.save(new Category(taskDTO.getCategory()));
         task.setCategory(category);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             task.setDate(dateFormat.parse(taskDTO.getDate()));
@@ -128,10 +128,6 @@ public class TaskService {
         }
         task.setDuration(taskDTO.getDuration());
         taskRepository.save(task);
-    }
-    public void addTasks(User user, List<TaskDTO> taskDTOList){
-        for(int i=0;i<taskDTOList.size();i++)
-            addTask(user, taskDTOList.get(i));
     }
 
     public String toggleIsDoneAndShowState(Long task_id, User fetchUser) {
